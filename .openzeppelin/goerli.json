@@ -1,0 +1,843 @@
+{
+  "manifestVersion": "3.2",
+  "admin": {
+    "address": "0x5F29DcF70A3369E9cDD5fC3F2D0299Bb96E59C50",
+    "txHash": "0xc49fdc82301ddb89830d8643e3b1134943c6dc375a5c3d9413d9e5c01dd3066e"
+  },
+  "proxies": [
+    {
+      "address": "0x9000c5AdF531B149e5aAaBB25e925d7c03950A7a",
+      "txHash": "0xbc19a2f0bd9d0f80f13e35cb932b024b9db9e2186d3c89aa14ff765d7a98d4b6",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x75187F6F2cdE659E5e4e64f620aF15A08f13b1eD",
+      "txHash": "0xc533b347ceeeddad85ce4c1f33df0611d17ae6888f4c60fabb92c974a77f3311",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x010526f1f48B18dB2A35225236FB2bAA0b0BA839",
+      "txHash": "0x061e2717330cadb044ecf93d00c88810840bf58895169dad9dac303eb4f85aea",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x95dCEbC98c1b669ce481635C66115C678ab8189A",
+      "txHash": "0xcb6660a7a6e2fae6dc74b906e3741fb34ee7e3531f5b109fc0e9a13705fc2e82",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xA930B859cc735f8A6294b85349e8c702dE38C61A",
+      "txHash": "0x6a2956ccf858d2dca0f178a881a7d37f56e524320511a70252233435797c1597",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x9C9E9AF9035374D23fBf26ca7faC541B8023664e",
+      "txHash": "0x1a40998d86f2499e20cabab4a6996c59d042f400142ece3230ea128735ff0844",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x5c7d6a248A5936724D31087797FE5Ab4157250C9",
+      "txHash": "0xf7ad5d1b9bd89ce68bb843253c56e9499faaeb8197a0f4545eb0c039916da667",
+      "kind": "transparent"
+    }
+  ],
+  "impls": {
+    "58e33a630ed90c0d4403de7b556f30ce55a891243c03203b6515c7dc480b3fbc": {
+      "address": "0x7F7C1a5170f7c0604b88695cb0199611D516E20F",
+      "txHash": "0x3376ce29a318d49a5218d1cae68d40ab03cd872b7a580ecb5a40c19063efad63",
+      "layout": {
+        "solcVersion": "0.8.17",
+        "storage": [
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint8",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:63",
+            "retypedFrom": "bool"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:68"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "ContextUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable.sol:36"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "51",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "ERC165Upgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/utils/introspection/ERC165Upgradeable.sol:41"
+          },
+          {
+            "label": "_roles",
+            "offset": 0,
+            "slot": "101",
+            "type": "t_mapping(t_bytes32,t_struct(RoleData)179_storage)",
+            "contract": "AccessControlUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol:62"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "102",
+            "type": "t_array(t_uint256)49_storage",
+            "contract": "AccessControlUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol:260"
+          },
+          {
+            "label": "_roleMembers",
+            "offset": 0,
+            "slot": "151",
+            "type": "t_mapping(t_bytes32,t_struct(AddressSet)3775_storage)",
+            "contract": "AccessControlEnumerableUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/access/AccessControlEnumerableUpgradeable.sol:22"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "152",
+            "type": "t_array(t_uint256)49_storage",
+            "contract": "AccessControlEnumerableUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/access/AccessControlEnumerableUpgradeable.sol:76"
+          },
+          {
+            "label": "_paused",
+            "offset": 0,
+            "slot": "201",
+            "type": "t_bool",
+            "contract": "PausableUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol:29"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "202",
+            "type": "t_array(t_uint256)49_storage",
+            "contract": "PausableUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol:116"
+          },
+          {
+            "label": "_status",
+            "offset": 0,
+            "slot": "251",
+            "type": "t_uint256",
+            "contract": "ReentrancyGuardUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/security/ReentrancyGuardUpgradeable.sol:38"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "252",
+            "type": "t_array(t_uint256)49_storage",
+            "contract": "ReentrancyGuardUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/security/ReentrancyGuardUpgradeable.sol:88"
+          },
+          {
+            "label": "paymentToken",
+            "offset": 0,
+            "slot": "301",
+            "type": "t_contract(IERC20Upgradeable)1293",
+            "contract": "PICAMarketplaceV1",
+            "src": "contracts/ex/PICAMarketplaceV1.sol:68"
+          },
+          {
+            "label": "fee",
+            "offset": 0,
+            "slot": "302",
+            "type": "t_uint256",
+            "contract": "PICAMarketplaceV1",
+            "src": "contracts/ex/PICAMarketplaceV1.sol:71"
+          },
+          {
+            "label": "feeReceipient",
+            "offset": 0,
+            "slot": "303",
+            "type": "t_address",
+            "contract": "PICAMarketplaceV1",
+            "src": "contracts/ex/PICAMarketplaceV1.sol:74"
+          },
+          {
+            "label": "listings",
+            "offset": 0,
+            "slot": "304",
+            "type": "t_mapping(t_address,t_mapping(t_uint256,t_mapping(t_address,t_struct(ListingOrBid)4097_storage)))",
+            "contract": "PICAMarketplaceV1",
+            "src": "contracts/ex/PICAMarketplaceV1.sol:77"
+          },
+          {
+            "label": "tokenApprovals",
+            "offset": 0,
+            "slot": "305",
+            "type": "t_mapping(t_address,t_enum(TokenApprovalStatus)4108)",
+            "contract": "PICAMarketplaceV1",
+            "src": "contracts/ex/PICAMarketplaceV1.sol:81"
+          },
+          {
+            "label": "feeWithCollectionOwner",
+            "offset": 0,
+            "slot": "306",
+            "type": "t_uint256",
+            "contract": "PICAMarketplaceV1",
+            "src": "contracts/ex/PICAMarketplaceV1.sol:84"
+          },
+          {
+            "label": "collectionToCollectionOwnerFee",
+            "offset": 0,
+            "slot": "307",
+            "type": "t_mapping(t_address,t_struct(CollectionOwnerFee)4104_storage)",
+            "contract": "PICAMarketplaceV1",
+            "src": "contracts/ex/PICAMarketplaceV1.sol:87"
+          },
+          {
+            "label": "collectionToPaymentToken",
+            "offset": 0,
+            "slot": "308",
+            "type": "t_mapping(t_address,t_address)",
+            "contract": "PICAMarketplaceV1",
+            "src": "contracts/ex/PICAMarketplaceV1.sol:91"
+          },
+          {
+            "label": "weth",
+            "offset": 0,
+            "slot": "309",
+            "type": "t_contract(IERC20Upgradeable)1293",
+            "contract": "PICAMarketplaceV1",
+            "src": "contracts/ex/PICAMarketplaceV1.sol:94"
+          },
+          {
+            "label": "tokenBids",
+            "offset": 0,
+            "slot": "310",
+            "type": "t_mapping(t_address,t_mapping(t_uint256,t_mapping(t_address,t_struct(ListingOrBid)4097_storage)))",
+            "contract": "PICAMarketplaceV1",
+            "src": "contracts/ex/PICAMarketplaceV1.sol:97"
+          },
+          {
+            "label": "collectionBids",
+            "offset": 0,
+            "slot": "311",
+            "type": "t_mapping(t_address,t_mapping(t_address,t_struct(ListingOrBid)4097_storage))",
+            "contract": "PICAMarketplaceV1",
+            "src": "contracts/ex/PICAMarketplaceV1.sol:101"
+          },
+          {
+            "label": "areBidsActive",
+            "offset": 0,
+            "slot": "312",
+            "type": "t_bool",
+            "contract": "PICAMarketplaceV1",
+            "src": "contracts/ex/PICAMarketplaceV1.sol:104"
+          },
+          {
+            "label": "priceTrackerAddress",
+            "offset": 1,
+            "slot": "312",
+            "type": "t_address",
+            "contract": "PICAMarketplaceV1",
+            "src": "contracts/ex/PICAMarketplaceV1.sol:107"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_bytes32)dyn_storage": {
+            "label": "bytes32[]",
+            "numberOfBytes": "32"
+          },
+          "t_array(t_uint256)49_storage": {
+            "label": "uint256[49]",
+            "numberOfBytes": "1568"
+          },
+          "t_array(t_uint256)50_storage": {
+            "label": "uint256[50]",
+            "numberOfBytes": "1600"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_bytes32": {
+            "label": "bytes32",
+            "numberOfBytes": "32"
+          },
+          "t_contract(IERC20Upgradeable)1293": {
+            "label": "contract IERC20Upgradeable",
+            "numberOfBytes": "20"
+          },
+          "t_enum(TokenApprovalStatus)4108": {
+            "label": "enum PICAMarketplaceV1.TokenApprovalStatus",
+            "members": [
+              "NOT_APPROVED",
+              "ERC_721_APPROVED",
+              "ERC_1155_APPROVED"
+            ],
+            "numberOfBytes": "1"
+          },
+          "t_mapping(t_address,t_address)": {
+            "label": "mapping(address => address)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_bool)": {
+            "label": "mapping(address => bool)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_enum(TokenApprovalStatus)4108)": {
+            "label": "mapping(address => enum PICAMarketplaceV1.TokenApprovalStatus)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_mapping(t_address,t_struct(ListingOrBid)4097_storage))": {
+            "label": "mapping(address => mapping(address => struct PICAMarketplaceV1.ListingOrBid))",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_mapping(t_uint256,t_mapping(t_address,t_struct(ListingOrBid)4097_storage)))": {
+            "label": "mapping(address => mapping(uint256 => mapping(address => struct PICAMarketplaceV1.ListingOrBid)))",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_struct(CollectionOwnerFee)4104_storage)": {
+            "label": "mapping(address => struct PICAMarketplaceV1.CollectionOwnerFee)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_struct(ListingOrBid)4097_storage)": {
+            "label": "mapping(address => struct PICAMarketplaceV1.ListingOrBid)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_struct(AddressSet)3775_storage)": {
+            "label": "mapping(bytes32 => struct EnumerableSetUpgradeable.AddressSet)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_struct(RoleData)179_storage)": {
+            "label": "mapping(bytes32 => struct AccessControlUpgradeable.RoleData)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_uint256)": {
+            "label": "mapping(bytes32 => uint256)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_mapping(t_address,t_struct(ListingOrBid)4097_storage))": {
+            "label": "mapping(uint256 => mapping(address => struct PICAMarketplaceV1.ListingOrBid))",
+            "numberOfBytes": "32"
+          },
+          "t_struct(AddressSet)3775_storage": {
+            "label": "struct EnumerableSetUpgradeable.AddressSet",
+            "members": [
+              {
+                "label": "_inner",
+                "type": "t_struct(Set)3460_storage",
+                "offset": 0,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "64"
+          },
+          "t_struct(CollectionOwnerFee)4104_storage": {
+            "label": "struct PICAMarketplaceV1.CollectionOwnerFee",
+            "members": [
+              {
+                "label": "fee",
+                "type": "t_uint32",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "recipient",
+                "type": "t_address",
+                "offset": 4,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_struct(ListingOrBid)4097_storage": {
+            "label": "struct PICAMarketplaceV1.ListingOrBid",
+            "members": [
+              {
+                "label": "quantity",
+                "type": "t_uint64",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "pricePerItem",
+                "type": "t_uint128",
+                "offset": 8,
+                "slot": "0"
+              },
+              {
+                "label": "expirationTime",
+                "type": "t_uint64",
+                "offset": 24,
+                "slot": "0"
+              },
+              {
+                "label": "paymentTokenAddress",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "1"
+              }
+            ],
+            "numberOfBytes": "64"
+          },
+          "t_struct(RoleData)179_storage": {
+            "label": "struct AccessControlUpgradeable.RoleData",
+            "members": [
+              {
+                "label": "members",
+                "type": "t_mapping(t_address,t_bool)",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "adminRole",
+                "type": "t_bytes32",
+                "offset": 0,
+                "slot": "1"
+              }
+            ],
+            "numberOfBytes": "64"
+          },
+          "t_struct(Set)3460_storage": {
+            "label": "struct EnumerableSetUpgradeable.Set",
+            "members": [
+              {
+                "label": "_values",
+                "type": "t_array(t_bytes32)dyn_storage",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "_indexes",
+                "type": "t_mapping(t_bytes32,t_uint256)",
+                "offset": 0,
+                "slot": "1"
+              }
+            ],
+            "numberOfBytes": "64"
+          },
+          "t_uint128": {
+            "label": "uint128",
+            "numberOfBytes": "16"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint32": {
+            "label": "uint32",
+            "numberOfBytes": "4"
+          },
+          "t_uint64": {
+            "label": "uint64",
+            "numberOfBytes": "8"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        }
+      }
+    },
+    "968660f9a48831ee2ede3a8239b6a54d2b5230e47fb88b0b134ecd75d7c29563": {
+      "address": "0x26BE0322D4Defc3d96902AF923c474559ce84fF7",
+      "txHash": "0x4cfec930d18800e9e7bd9004fb1ed50a84ee53480860463d625fe1375028d169",
+      "layout": {
+        "solcVersion": "0.8.17",
+        "storage": [
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint8",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:63",
+            "retypedFrom": "bool"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:68"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "ContextUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable.sol:36"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "51",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "ERC165Upgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/utils/introspection/ERC165Upgradeable.sol:41"
+          },
+          {
+            "label": "_roles",
+            "offset": 0,
+            "slot": "101",
+            "type": "t_mapping(t_bytes32,t_struct(RoleData)179_storage)",
+            "contract": "AccessControlUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol:62"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "102",
+            "type": "t_array(t_uint256)49_storage",
+            "contract": "AccessControlUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol:260"
+          },
+          {
+            "label": "_roleMembers",
+            "offset": 0,
+            "slot": "151",
+            "type": "t_mapping(t_bytes32,t_struct(AddressSet)3775_storage)",
+            "contract": "AccessControlEnumerableUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/access/AccessControlEnumerableUpgradeable.sol:22"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "152",
+            "type": "t_array(t_uint256)49_storage",
+            "contract": "AccessControlEnumerableUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/access/AccessControlEnumerableUpgradeable.sol:76"
+          },
+          {
+            "label": "_paused",
+            "offset": 0,
+            "slot": "201",
+            "type": "t_bool",
+            "contract": "PausableUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol:29"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "202",
+            "type": "t_array(t_uint256)49_storage",
+            "contract": "PausableUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol:116"
+          },
+          {
+            "label": "_status",
+            "offset": 0,
+            "slot": "251",
+            "type": "t_uint256",
+            "contract": "ReentrancyGuardUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/security/ReentrancyGuardUpgradeable.sol:38"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "252",
+            "type": "t_array(t_uint256)49_storage",
+            "contract": "ReentrancyGuardUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/security/ReentrancyGuardUpgradeable.sol:88"
+          },
+          {
+            "label": "paymentToken",
+            "offset": 0,
+            "slot": "301",
+            "type": "t_contract(IERC20Upgradeable)1293",
+            "contract": "PICAMarketplaceV1",
+            "src": "contracts/ex/PICAMarketplaceV1.sol:68"
+          },
+          {
+            "label": "fee",
+            "offset": 0,
+            "slot": "302",
+            "type": "t_uint256",
+            "contract": "PICAMarketplaceV1",
+            "src": "contracts/ex/PICAMarketplaceV1.sol:71"
+          },
+          {
+            "label": "feeReceipient",
+            "offset": 0,
+            "slot": "303",
+            "type": "t_address",
+            "contract": "PICAMarketplaceV1",
+            "src": "contracts/ex/PICAMarketplaceV1.sol:74"
+          },
+          {
+            "label": "listings",
+            "offset": 0,
+            "slot": "304",
+            "type": "t_mapping(t_address,t_mapping(t_uint256,t_mapping(t_address,t_struct(ListingOrBid)4097_storage)))",
+            "contract": "PICAMarketplaceV1",
+            "src": "contracts/ex/PICAMarketplaceV1.sol:77"
+          },
+          {
+            "label": "feeWithCollectionOwner",
+            "offset": 0,
+            "slot": "305",
+            "type": "t_uint256",
+            "contract": "PICAMarketplaceV1",
+            "src": "contracts/ex/PICAMarketplaceV1.sol:81"
+          },
+          {
+            "label": "collectionToCollectionOwnerFee",
+            "offset": 0,
+            "slot": "306",
+            "type": "t_mapping(t_address,t_struct(CollectionOwnerFee)4104_storage)",
+            "contract": "PICAMarketplaceV1",
+            "src": "contracts/ex/PICAMarketplaceV1.sol:84"
+          },
+          {
+            "label": "collectionToPaymentToken",
+            "offset": 0,
+            "slot": "307",
+            "type": "t_mapping(t_address,t_address)",
+            "contract": "PICAMarketplaceV1",
+            "src": "contracts/ex/PICAMarketplaceV1.sol:88"
+          },
+          {
+            "label": "weth",
+            "offset": 0,
+            "slot": "308",
+            "type": "t_contract(IERC20Upgradeable)1293",
+            "contract": "PICAMarketplaceV1",
+            "src": "contracts/ex/PICAMarketplaceV1.sol:91"
+          },
+          {
+            "label": "tokenBids",
+            "offset": 0,
+            "slot": "309",
+            "type": "t_mapping(t_address,t_mapping(t_uint256,t_mapping(t_address,t_struct(ListingOrBid)4097_storage)))",
+            "contract": "PICAMarketplaceV1",
+            "src": "contracts/ex/PICAMarketplaceV1.sol:94"
+          },
+          {
+            "label": "collectionBids",
+            "offset": 0,
+            "slot": "310",
+            "type": "t_mapping(t_address,t_mapping(t_address,t_struct(ListingOrBid)4097_storage))",
+            "contract": "PICAMarketplaceV1",
+            "src": "contracts/ex/PICAMarketplaceV1.sol:98"
+          },
+          {
+            "label": "areBidsActive",
+            "offset": 0,
+            "slot": "311",
+            "type": "t_bool",
+            "contract": "PICAMarketplaceV1",
+            "src": "contracts/ex/PICAMarketplaceV1.sol:101"
+          },
+          {
+            "label": "priceTrackerAddress",
+            "offset": 1,
+            "slot": "311",
+            "type": "t_address",
+            "contract": "PICAMarketplaceV1",
+            "src": "contracts/ex/PICAMarketplaceV1.sol:104"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_bytes32)dyn_storage": {
+            "label": "bytes32[]",
+            "numberOfBytes": "32"
+          },
+          "t_array(t_uint256)49_storage": {
+            "label": "uint256[49]",
+            "numberOfBytes": "1568"
+          },
+          "t_array(t_uint256)50_storage": {
+            "label": "uint256[50]",
+            "numberOfBytes": "1600"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_bytes32": {
+            "label": "bytes32",
+            "numberOfBytes": "32"
+          },
+          "t_contract(IERC20Upgradeable)1293": {
+            "label": "contract IERC20Upgradeable",
+            "numberOfBytes": "20"
+          },
+          "t_mapping(t_address,t_address)": {
+            "label": "mapping(address => address)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_bool)": {
+            "label": "mapping(address => bool)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_mapping(t_address,t_struct(ListingOrBid)4097_storage))": {
+            "label": "mapping(address => mapping(address => struct PICAMarketplaceV1.ListingOrBid))",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_mapping(t_uint256,t_mapping(t_address,t_struct(ListingOrBid)4097_storage)))": {
+            "label": "mapping(address => mapping(uint256 => mapping(address => struct PICAMarketplaceV1.ListingOrBid)))",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_struct(CollectionOwnerFee)4104_storage)": {
+            "label": "mapping(address => struct PICAMarketplaceV1.CollectionOwnerFee)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_struct(ListingOrBid)4097_storage)": {
+            "label": "mapping(address => struct PICAMarketplaceV1.ListingOrBid)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_struct(AddressSet)3775_storage)": {
+            "label": "mapping(bytes32 => struct EnumerableSetUpgradeable.AddressSet)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_struct(RoleData)179_storage)": {
+            "label": "mapping(bytes32 => struct AccessControlUpgradeable.RoleData)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_uint256)": {
+            "label": "mapping(bytes32 => uint256)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_mapping(t_address,t_struct(ListingOrBid)4097_storage))": {
+            "label": "mapping(uint256 => mapping(address => struct PICAMarketplaceV1.ListingOrBid))",
+            "numberOfBytes": "32"
+          },
+          "t_struct(AddressSet)3775_storage": {
+            "label": "struct EnumerableSetUpgradeable.AddressSet",
+            "members": [
+              {
+                "label": "_inner",
+                "type": "t_struct(Set)3460_storage",
+                "offset": 0,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "64"
+          },
+          "t_struct(CollectionOwnerFee)4104_storage": {
+            "label": "struct PICAMarketplaceV1.CollectionOwnerFee",
+            "members": [
+              {
+                "label": "fee",
+                "type": "t_uint32",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "recipient",
+                "type": "t_address",
+                "offset": 4,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_struct(ListingOrBid)4097_storage": {
+            "label": "struct PICAMarketplaceV1.ListingOrBid",
+            "members": [
+              {
+                "label": "quantity",
+                "type": "t_uint64",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "pricePerItem",
+                "type": "t_uint128",
+                "offset": 8,
+                "slot": "0"
+              },
+              {
+                "label": "expirationTime",
+                "type": "t_uint64",
+                "offset": 24,
+                "slot": "0"
+              },
+              {
+                "label": "paymentTokenAddress",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "1"
+              }
+            ],
+            "numberOfBytes": "64"
+          },
+          "t_struct(RoleData)179_storage": {
+            "label": "struct AccessControlUpgradeable.RoleData",
+            "members": [
+              {
+                "label": "members",
+                "type": "t_mapping(t_address,t_bool)",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "adminRole",
+                "type": "t_bytes32",
+                "offset": 0,
+                "slot": "1"
+              }
+            ],
+            "numberOfBytes": "64"
+          },
+          "t_struct(Set)3460_storage": {
+            "label": "struct EnumerableSetUpgradeable.Set",
+            "members": [
+              {
+                "label": "_values",
+                "type": "t_array(t_bytes32)dyn_storage",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "_indexes",
+                "type": "t_mapping(t_bytes32,t_uint256)",
+                "offset": 0,
+                "slot": "1"
+              }
+            ],
+            "numberOfBytes": "64"
+          },
+          "t_uint128": {
+            "label": "uint128",
+            "numberOfBytes": "16"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint32": {
+            "label": "uint32",
+            "numberOfBytes": "4"
+          },
+          "t_uint64": {
+            "label": "uint64",
+            "numberOfBytes": "8"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        }
+      }
+    }
+  }
+}
