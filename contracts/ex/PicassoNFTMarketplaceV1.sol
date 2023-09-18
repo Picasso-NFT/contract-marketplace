@@ -262,119 +262,44 @@ contract PicassoNFTMarketplaceV1 is
         paymentToken = _initialPaymentToken;
     }
 
-    /// @notice Creates an item listing. You must authorize this marketplace with your item's token contract to list.
-    /// @param  _nftAddress     which token contract holds the offered token
-    /// @param  _tokenId        the identifier for the offered token
-    /// @param  _quantity       how many of this token identifier are offered (or 1 for a ERC-721 token)
-    /// @param  _pricePerItem   the price (in units of the paymentToken) for each token offered
-    /// @param  _expirationTime UNIX timestamp after when this listing expires
-    function createListing(
-        address _nftAddress,
-        uint256 _tokenId,
-        uint64 _quantity,
-        uint128 _pricePerItem,
-        uint64 _expirationTime,
-        address _paymentToken
-    ) external nonReentrant whenNotPaused {
-        require(
-            listings[_nftAddress][_tokenId][_msgSender()].quantity == 0,
-            "Already listed"
-        );
-        _createListingWithoutEvent(
-            _nftAddress,
-            _tokenId,
-            _quantity,
-            _pricePerItem,
-            _expirationTime,
-            _paymentToken
-        );
-        emit ItemListed(
-            _msgSender(),
-            _nftAddress,
-            _tokenId,
-            _quantity,
-            _pricePerItem,
-            _expirationTime,
-            _paymentToken
-        );
-    }
-
-    /// @notice Updates an item listing
-    /// @param  _nftAddress        which token contract holds the offered token
-    /// @param  _tokenId           the identifier for the offered token
-    /// @param  _newQuantity       how many of this token identifier are offered (or 1 for a ERC-721 token)
-    /// @param  _newPricePerItem   the price (in units of the paymentToken) for each token offered
-    /// @param  _newExpirationTime UNIX timestamp after when this listing expires
-    function updateListing(
-        address _nftAddress,
-        uint256 _tokenId,
-        uint64 _newQuantity,
-        uint128 _newPricePerItem,
-        uint64 _newExpirationTime,
-        address _paymentToken
-    ) external nonReentrant whenNotPaused {
-        require(
-            listings[_nftAddress][_tokenId][_msgSender()].quantity > 0,
-            "Not listed item"
-        );
-        _createListingWithoutEvent(
-            _nftAddress,
-            _tokenId,
-            _newQuantity,
-            _newPricePerItem,
-            _newExpirationTime,
-            _paymentToken
-        );
-        emit ItemUpdated(
-            _msgSender(),
-            _nftAddress,
-            _tokenId,
-            _newQuantity,
-            _newPricePerItem,
-            _newExpirationTime,
-            _paymentToken
-        );
-    }
-
     function createOrUpdateListing(
-        address _nftAddress,
-        uint256 _tokenId,
-        uint64 _quantity,
-        uint128 _pricePerItem,
-        uint64 _expirationTime,
-        address _paymentToken
+        ListParams[] calldata _listParams
     ) external nonReentrant whenNotPaused {
-        bool _existingListing = listings[_nftAddress][_tokenId][_msgSender()]
-            .quantity > 0;
-        _createListingWithoutEvent(
-            _nftAddress,
-            _tokenId,
-            _quantity,
-            _pricePerItem,
-            _expirationTime,
-            _paymentToken
-        );
-        // Keep the events the same as they were before.
-        if (_existingListing) {
-            emit ItemUpdated(
-                _msgSender(),
-                _nftAddress,
-                _tokenId,
-                _quantity,
-                _pricePerItem,
-                _expirationTime,
-                _paymentToken
+        for (uint256 i = 0; i < _listParams.length; i++) {
+            ListParams calldata _listParam = _listParams[i];
+            bool _existingListing = listings[_listParam._nftAddress][
+                _listParam._tokenId
+            ][_msgSender()].quantity > 0;
+            _createListingWithoutEvent(
+                _listParam._nftAddress,
+                _listParam._tokenId,
+                _listParam._quantity,
+                _listParam._pricePerItem,
+                _listParam._expirationTime,
+                _listParam._paymentToken
             );
-        } else {
-            emit ItemListed(
-                _msgSender(),
-                _nftAddress,
-                _tokenId,
-                _quantity,
-                _pricePerItem,
-                _expirationTime,
-                _paymentToken
-            );
+            // Keep the events the same as they were before.
+            if (_existingListing) {
+                emit ItemUpdated(
+                    _msgSender(),
+                    _listParam._nftAddress,
+                    _listParam._tokenId,
+                    _listParam._quantity,
+                    _listParam._pricePerItem,
+                    _listParam._expirationTime,
+                    _listParam._paymentToken
+                );
+            } else {
+                emit ItemListed(
+                    _msgSender(),
+                    _listParam._nftAddress,
+                    _listParam._tokenId,
+                    _listParam._quantity,
+                    _listParam._pricePerItem,
+                    _listParam._expirationTime,
+                    _listParam._paymentToken
+                );
+            }
         }
     }
 
@@ -435,18 +360,25 @@ contract PicassoNFTMarketplaceV1 is
         );
     }
 
-    /// @notice Remove an item listing
-    /// @param  _nftAddress which token contract holds the offered token
-    /// @param  _tokenId    the identifier for the offered token
     function cancelListing(
-        address _nftAddress,
-        uint256 _tokenId
+        CancelListParams[] calldata _cancelListParams
     ) external nonReentrant {
-        delete (listings[_nftAddress][_tokenId][_msgSender()]);
-        emit ItemCanceled(_msgSender(), _nftAddress, _tokenId);
+        for (uint256 i = 0; i < _cancelListParams.length; i++) {
+            CancelListParams calldata _cancelListParam = _cancelListParams[i];
+            delete (
+                listings[_cancelListParam.nftAddress][_cancelListParam.tokenId][
+                    _msgSender()
+                ]
+            );
+            emit ItemCanceled(
+                _msgSender(),
+                _cancelListParam.nftAddress,
+                _cancelListParam.tokenId
+            );
+        }
     }
 
-    function cancelManyBids(
+    function cancelBids(
         CancelBidParams[] calldata _cancelBidParams
     ) external nonReentrant {
         for (uint256 i = 0; i < _cancelBidParams.length; i++) {
@@ -584,15 +516,12 @@ contract PicassoNFTMarketplaceV1 is
     }
 
     function acceptCollectionBid(
-        AcceptBidParams calldata _acceptBidParams
+        AcceptBidParams[] calldata _acceptBidParams
     ) external nonReentrant whenNotPaused whenBiddingActive {
-        _acceptBid(_acceptBidParams, BidType.COLLECTION);
-    }
-
-    function acceptTokenBid(
-        AcceptBidParams calldata _acceptBidParams
-    ) external nonReentrant whenNotPaused whenBiddingActive {
-        _acceptBid(_acceptBidParams, BidType.TOKEN);
+        for (uint256 i = 0; i < _acceptBidParams.length; i++) {
+            AcceptBidParams calldata _acceptBidParam = _acceptBidParams[i];
+            _acceptBid(_acceptBidParam, BidType.COLLECTION);
+        }
     }
 
     function _acceptBid(
@@ -1048,6 +977,17 @@ contract PicassoNFTMarketplaceV1 is
     }
 }
 
+struct ListParams {
+    address _nftAddress;
+    uint256 _tokenId;
+    uint64 _quantity;
+    // the price for each token
+    uint128 _pricePerItem;
+    uint64 _expirationTime;
+    /// the payment token to be used
+    address _paymentToken;
+}
+
 struct BuyItemParams {
     /// which token contract holds the offered token
     address nftAddress;
@@ -1078,6 +1018,11 @@ struct AcceptBidParams {
     uint128 pricePerItem;
     /// the payment token to be used
     address paymentToken;
+}
+
+struct CancelListParams {
+    address nftAddress;
+    uint256 tokenId;
 }
 
 struct CancelBidParams {

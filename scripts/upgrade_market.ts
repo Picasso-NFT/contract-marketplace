@@ -1,8 +1,8 @@
 const { ethers, upgrades } = require("hardhat");
 
 async function main() {
-  const upgrade = await ethers.getContractFactory("PICAMarketplaceV2");
-  const instance = await upgrades.upgradeProxy('0x9000c5adf531b149e5aaabb25e925d7c03950a7a', upgrade);
+  const upgrade = await ethers.getContractFactory("PicassoNFTMarketplaceV1");
+  const instance = await upgrades.upgradeProxy('0x55bcbfd402fd43db5fb0961bd6acbeaf831e4ca8', upgrade);
   console.log("Box upgraded: " + instance.address);
 }
 

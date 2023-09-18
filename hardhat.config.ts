@@ -1,8 +1,10 @@
+
+import "@matterlabs/hardhat-zksync-solc";
+import "@matterlabs/hardhat-zksync-deploy";
+// upgradable plugin
+import "@matterlabs/hardhat-zksync-upgradable";
+
 import { HardhatUserConfig } from "hardhat/config";
-import "@nomicfoundation/hardhat-toolbox";
-import 'dotenv/config';
-import '@openzeppelin/hardhat-upgrades';
-// import "@matterlabs/hardhat-zksync-deploy";
 
 const config: HardhatUserConfig = {
   solidity: {
@@ -14,33 +16,22 @@ const config: HardhatUserConfig = {
       },
     },
   },
-  paths: {
-    sources: "contracts"
+  zksolc: {
+    version: "latest",
+    settings: {},
   },
-  defaultNetwork: "hardhat",
+  defaultNetwork: "zkSyncNetwork",
   networks: {
-    hardhat: {},
-    localhost: {
-      url: "http://127.0.0.1:8545"
-    },
     goerli: {
-      url: process.env.RPC_URL,
-      accounts: process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+      zksync: false,
+      url: "http://localhost:8545",
     },
-    zksync: {
-      url: 'https://mainnet.era.zksync.io',
-      accounts: process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
-      // zksync: true
-    }
+    zkSyncNetwork: {
+      zksync: true,
+      ethNetwork: "goerli",
+      url: "https://mainnet.era.zksync.io",
+    },
   },
-  etherscan: {
-    apiKey: {
-      goerli: process.env.ETHERSCAN_API_KEY as string
-    } 
-  },
-  mocha: {
-    timeout: 20000
-  }
 };
 
 export default config;
