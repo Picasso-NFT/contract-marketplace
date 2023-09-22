@@ -260,6 +260,7 @@ contract PicassoNFTMarketplaceV1 is
         setFee(_initialFee, _initialFee);
         setFeeRecipient(_initialFeeRecipient);
         paymentToken = _initialPaymentToken;
+        areBidsActive = true;
     }
 
     function createOrUpdateListing(
