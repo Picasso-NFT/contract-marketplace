@@ -11,8 +11,6 @@ import "@openzeppelin/contracts-upgradeable/token/ERC20/utils/SafeERC20Upgradeab
 import "@openzeppelin/contracts-upgradeable/security/ReentrancyGuardUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol";
 
-import "./interfaces/INFTPriceTracker.sol";
-
 contract PicassoNFTMarketplaceV1 is
     AccessControlEnumerableUpgradeable,
     PausableUpgradeable,
@@ -64,9 +62,6 @@ contract PicassoNFTMarketplaceV1 is
     /// @notice the minimum price for which any item can be sold
     uint256 public constant MIN_PRICE = 1e9;
 
-    /// @notice the default token that is used for marketplace sales and fee payments. Can be overridden by collectionToTokenAddress.
-    IERC20Upgradeable public paymentToken;
-
     /// @notice fee portion (in basis points) for each sale, (e.g. a value of 100 is 100/10000 = 1%). This is the fee if no collection owner fee is set.
     uint256 public fee;
 
@@ -84,8 +79,8 @@ contract PicassoNFTMarketplaceV1 is
     mapping(address => CollectionOwnerFee)
         public collectionToCollectionOwnerFee;
 
-    /// @notice Maps the collection address to the payment token that will be used for purchasing. If the address is the zero address, it will use the default paymentToken.
-    mapping(address => address) public collectionToPaymentToken;
+    /// @notice Maps the support payment token.
+    mapping(address => bool) public supportPaymentToken;
 
     /// @notice The address for weth.
     IERC20Upgradeable public weth;
@@ -239,17 +234,10 @@ contract PicassoNFTMarketplaceV1 is
     ///         performed before publishing this contract address.
     /// @param  _initialFee          fee to be paid on each sale, in basis points
     /// @param  _initialFeeRecipient wallet to collets fees
-    /// @param  _initialPaymentToken address of the token that is used for settlement
     function initialize(
         uint256 _initialFee,
-        address _initialFeeRecipient,
-        IERC20Upgradeable _initialPaymentToken
+        address _initialFeeRecipient
     ) external initializer {
-        require(
-            address(_initialPaymentToken) != address(0),
-            "Cannot set address(0)"
-        );
-
         __AccessControl_init_unchained();
         __Pausable_init_unchained();
         __ReentrancyGuard_init_unchained();
@@ -259,7 +247,7 @@ contract PicassoNFTMarketplaceV1 is
 
         setFee(_initialFee, _initialFee);
         setFeeRecipient(_initialFeeRecipient);
-        paymentToken = _initialPaymentToken;
+        supportPaymentToken[address(0)] = true;
         areBidsActive = true;
     }
 
@@ -342,16 +330,10 @@ contract PicassoNFTMarketplaceV1 is
             );
             require(_quantity > 0, "Nothing to list");
         } else {
-            revert("Token is not approved for trading");
+            revert("NFT is not approved for trading");
         }
 
-        address _paymentTokenForCollection = getPaymentTokenForCollection(
-            _nftAddress
-        );
-        require(
-            _paymentTokenForCollection == _paymentToken,
-            "Wrong payment token"
-        );
+        require(supportPaymentToken[_paymentToken], "Token is not supported");
 
         listings[_nftAddress][_tokenId][_msgSender()] = ListingOrBid(
             _quantity,
@@ -422,7 +404,7 @@ contract PicassoNFTMarketplaceV1 is
         } else if (nft165.supportsInterface(INTERFACE_ID_ERC1155)) {
             require(_quantity > 0, "Bad quantity");
         } else {
-            revert("Token is not approved for trading");
+            revert("NFT is not approved for trading");
         }
 
         _createBidWithoutEvent(
@@ -458,7 +440,7 @@ contract PicassoNFTMarketplaceV1 is
         } else if (nft165.supportsInterface(INTERFACE_ID_ERC1155)) {
             revert("No collection bids on 1155s");
         } else {
-            revert("Token is not approved for trading");
+            revert("NFT is not approved for trading");
         }
 
         _createBidWithoutEvent(
@@ -491,13 +473,7 @@ contract PicassoNFTMarketplaceV1 is
         require(_expirationTime > block.timestamp, "Invalid expiration time");
         require(_pricePerItem >= MIN_PRICE, "Below min price");
 
-        address _paymentTokenForCollection = getPaymentTokenForCollection(
-            _nftAddress
-        );
-        require(
-            _paymentTokenForCollection == _paymentToken,
-            "Bad payment token"
-        );
+        require(supportPaymentToken[_paymentToken], "Token is not supported");
 
         IERC20Upgradeable _token = IERC20Upgradeable(_paymentToken);
 
@@ -557,16 +533,13 @@ contract PicassoNFTMarketplaceV1 is
             "Price does not match"
         );
 
-        // Ensure the accepter, the bidder, and the collection all agree on the token to be used for the purchase.
+        // Ensure the accepter, the bidder all agree on the token to be used for the purchase.
         // If the token used for buying/selling has changed since the bid was created, this effectively blocks
         // all the old bids with the old payment tokens from being bought.
-        address _paymentTokenForCollection = getPaymentTokenForCollection(
-            _acceptBidParams.nftAddress
-        );
 
         require(
             _bid.paymentTokenAddress == _acceptBidParams.paymentToken &&
-                _acceptBidParams.paymentToken == _paymentTokenForCollection,
+                supportPaymentToken[_acceptBidParams.paymentToken],
             "Wrong payment token"
         );
 
@@ -594,7 +567,7 @@ contract PicassoNFTMarketplaceV1 is
                 bytes("")
             );
         } else {
-            revert("Token is not approved for trading");
+            revert("NFT is not approved for trading");
         }
 
         _payFees(
@@ -606,14 +579,6 @@ contract PicassoNFTMarketplaceV1 is
             _acceptBidParams.paymentToken,
             false
         );
-
-        if (priceTrackerAddress != address(0)) {
-            INFTPriceTracker(priceTrackerAddress).recordSale(
-                _acceptBidParams.nftAddress,
-                _acceptBidParams.tokenId,
-                _bid.pricePerItem
-            );
-        }
 
         // Announce accepting bid
         emit BidAccepted(
@@ -676,23 +641,17 @@ contract PicassoNFTMarketplaceV1 is
         // Ensure the buyer, the seller, and the collection all agree on the token to be used for the purchase.
         // If the token used for buying/selling has changed since the listing was created, this effectively blocks
         // all the old listings with the old payment tokens from being bought.
-        address _paymentTokenForCollection = getPaymentTokenForCollection(
-            _buyItemParams.nftAddress
-        );
-        address _paymentTokenForListing = _getPaymentTokenForListing(
-            listedItem
-        );
 
         require(
-            _paymentTokenForListing == _buyItemParams.paymentToken &&
-                _buyItemParams.paymentToken == _paymentTokenForCollection,
+            listedItem.paymentTokenAddress == _buyItemParams.paymentToken &&
+                supportPaymentToken[_buyItemParams.paymentToken],
             "Wrong payment token"
         );
 
         if (_buyItemParams.usingEth) {
             require(
-                _paymentTokenForListing == address(weth),
-                "ETH only used with weth collection"
+                listedItem.paymentTokenAddress == address(0),
+                "ETH only used with zero collection"
             );
         }
 
@@ -716,7 +675,7 @@ contract PicassoNFTMarketplaceV1 is
                 bytes("")
             );
         } else {
-            revert("token is not approved for trading");
+            revert("NFT is not approved for trading");
         }
 
         _payFees(
@@ -749,14 +708,6 @@ contract PicassoNFTMarketplaceV1 is
             listings[_buyItemParams.nftAddress][_buyItemParams.tokenId][
                 _buyItemParams.owner
             ].quantity -= _buyItemParams.quantity;
-        }
-
-        if (priceTrackerAddress != address(0)) {
-            INFTPriceTracker(priceTrackerAddress).recordSale(
-                _buyItemParams.nftAddress,
-                _buyItemParams.tokenId,
-                listedItem.pricePerItem
-            );
         }
 
         if (_buyItemParams.usingEth) {
@@ -851,29 +802,11 @@ contract PicassoNFTMarketplaceV1 is
         }
     }
 
-    function getPaymentTokenForCollection(
-        address _collection
-    ) public view returns (address) {
-        address _collectionPaymentToken = collectionToPaymentToken[_collection];
-
-        // For backwards compatability. If a collection payment wasn't set at the collection level, it was using the payment token.
-        return
-            _collectionPaymentToken == address(0)
-                ? address(paymentToken)
-                : _collectionPaymentToken;
-    }
-
-    function _getPaymentTokenForListing(
-        ListingOrBid memory listedItem
-    ) private view returns (address) {
-        // For backwards compatability. If a listing has no payment token address, it was using the original, default payment token.
-        return
-            listedItem.paymentTokenAddress == address(0)
-                ? address(paymentToken)
-                : listedItem.paymentTokenAddress;
-    }
-
     // Owner administration ////////////////////////////////////////////////////////////////////////////////////////////
+
+    function setSupportPaymentToken(address _paymentToken, bool _status) public onlyRole(MARKETPLACE_ADMIN_ROLE) {
+        supportPaymentToken[_paymentToken] = _status;
+    }
 
     /// @notice Updates the fee amount which is collected during sales, for both collections with and without owner specific fees.
     /// @dev    This is callable only by the owner. Both fees may not exceed MAX_FEE
@@ -942,6 +875,7 @@ contract PicassoNFTMarketplaceV1 is
         require(address(weth) == address(0), "WETH address already set");
 
         weth = IERC20Upgradeable(_wethAddress);
+        setSupportPaymentToken(_wethAddress, true);
     }
 
     /// @notice Updates the fee recipient which receives fees during sales
